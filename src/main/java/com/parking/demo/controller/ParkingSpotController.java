@@ -25,12 +25,12 @@ public class ParkingSpotController {
         return parkingSpotService.getAllReservedSpots();
     }
 
-    @PostMapping("/parking_spots/reserve/{id}")
+    @PostMapping("/parking_spots/{id}/reserve")
     public void reserveParkingSpot(@PathVariable("id") int id, @RequestBody ReservationDTO reservationDTO)   {
         parkingSpotService.reserveParkingSpot(reservationDTO, id);
     }
 
-    @PostMapping("/parking_spots/cancel/{id}")
+    @PostMapping("/parking_spots/{id}/cancel")
     public void cancelReservation(@PathVariable("id") int id)   {
         parkingSpotService.cancelReservation(id);
     }
