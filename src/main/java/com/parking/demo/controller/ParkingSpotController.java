@@ -1,18 +1,19 @@
 package com.parking.demo.controller;
 
 import com.parking.demo.model.ParkingSpot;
+import com.parking.demo.model.ReservationDTO;
 import com.parking.demo.service.ParkingSpotService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class ParkingController {
-
-    @Autowired
+public class ParkingSpotController {
     private ParkingSpotService parkingSpotService;
+
+    public ParkingSpotController(ParkingSpotService parkingSpotService) {
+        this.parkingSpotService = parkingSpotService;
+    }
 
     @RequestMapping("/parking_spots/available")
     public List<ParkingSpot> getAvailableParkingSpots() {
@@ -22,5 +23,10 @@ public class ParkingController {
     @RequestMapping("/parking_spots/reserved")
     public List<ParkingSpot> getReservedParkingSpots() {
         return parkingSpotService.getAllReservedSpots();
+    }
+
+    @PostMapping("/parking_spots/reserve/{id}")
+    public void reserveParkingSpot(@PathVariable("id") int id, @RequestBody ReservationDTO reservationDTO) {
+        parkingSpotService.reserveParkingSpot(reservationDTO, id);
     }
 }

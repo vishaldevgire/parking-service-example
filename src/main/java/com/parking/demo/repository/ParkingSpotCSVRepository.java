@@ -2,7 +2,6 @@ package com.parking.demo.repository;
 
 import com.parking.demo.model.ParkingSpot;
 import com.parking.demo.model.Reservation;
-import com.parking.demo.util.CSVUtil;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
