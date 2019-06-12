@@ -1,22 +1,26 @@
 package com.parking.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ParkingSpot {
     private int id;
     private double latitudes;
     private double longitude;
     private int height;
     private int width;
-    private int cost;
-    private boolean reserved;
+    private Reservation reservation = null;
 
-    public ParkingSpot(int id, double latitudes, double longitude, int height, int width, int cost, boolean reserved) {
+    public ParkingSpot(int id, double latitudes, double longitude, int height, int width) {
+        this(id, latitudes, longitude, height, width, null);
+    }
+
+    public ParkingSpot(int id, double latitudes, double longitude, int height, int width, Reservation reservation) {
         this.id = id;
         this.latitudes = latitudes;
         this.longitude = longitude;
         this.height = height;
         this.width = width;
-        this.cost = cost;
-        this.reserved = reserved;
+        this.reservation = reservation;
     }
 
     public int getId() {
@@ -39,12 +43,13 @@ public class ParkingSpot {
         return width;
     }
 
-    public int getCost() {
-        return cost;
+    public Reservation getReservation() {
+        return this.reservation;
     }
 
-    public boolean isReserved() {
-        return reserved;
+    @JsonIgnore
+    public void reserve(Reservation reservation) {
+        this.reservation = reservation;
     }
 
     @Override
@@ -58,9 +63,7 @@ public class ParkingSpot {
         if (Double.compare(that.latitudes, latitudes) != 0) return false;
         if (Double.compare(that.longitude, longitude) != 0) return false;
         if (height != that.height) return false;
-        if (width != that.width) return false;
-        if (cost != that.cost) return false;
-        return reserved == that.reserved;
+        return width == that.width;
     }
 
     @Override
@@ -74,9 +77,12 @@ public class ParkingSpot {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + height;
         result = 31 * result + width;
-        result = 31 * result + cost;
-        result = 31 * result + (reserved ? 1 : 0);
         return result;
+    }
+
+    @JsonIgnore
+    public boolean isReserved() {
+        return this.reservation != null;
     }
 }
 
