@@ -67,6 +67,24 @@ public class ParkingSpotService {
         repository.saveParkingSpots();
     }
 
+    public void cancelReservation(int id) {
+        Optional<ParkingSpot> availableParkingSpot = findReservedParkingSpotWithId(id);
+
+        if (!availableParkingSpot.isPresent()) {
+            throw new ResponseStatusException(NOT_FOUND,
+                    String.format("Parking spot with id %d is not found", id));
+        }
+
+        if (!availableParkingSpot.get().isReserved()) {
+            throw new ResponseStatusException(BAD_REQUEST,
+                    String.format("Parking spot with id %d is not reserved", id));
+        }
+
+        availableParkingSpot.get().reserve(null);
+        repository.saveParkingSpots();
+    }
+
+
     private int calculateCost(ParkingSpot availableParkingSpotWithId, int numOfDays) {
         return availableParkingSpotWithId.getHeight() * availableParkingSpotWithId.getWidth() * numOfDays;
     }

@@ -4,6 +4,9 @@ public class ReservationDTO {
     private String user;
     private int numOfDays;
 
+    public ReservationDTO() {
+    }
+
     public ReservationDTO(String user, int numOfDays) {
         this.user = user;
         this.numOfDays = numOfDays;

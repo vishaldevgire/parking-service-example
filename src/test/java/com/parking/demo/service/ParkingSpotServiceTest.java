@@ -69,4 +69,15 @@ public class ParkingSpotServiceTest {
 
         assertThat(parkingSpot.isReserved()).isTrue();
     }
+
+    @Test
+    public void shouldCancelReservedParkingSpot() {
+        ParkingSpot parkingSpot = new ParkingSpot(1, 12, 23, 12, 45,
+                new Reservation("foobar", new Date(), new Date(), 400));
+        when(repository.getAllParkingSpots()).thenReturn(Arrays.asList(parkingSpot));
+        doAnswer(i -> null).when(repository).saveParkingSpots();
+        service.cancelReservation(1);
+
+        assertThat(parkingSpot.isReserved()).isFalse();
+    }
 }
