@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,8 +14,13 @@ public class ParkingController {
     @Autowired
     private ParkingSpotService parkingSpotService;
 
-    @RequestMapping("/")
-    public List<ParkingSpot> getSpots() {
-       return parkingSpotService.getAllParkingSpots();
+    @RequestMapping("/parking_spots/available")
+    public List<ParkingSpot> getAvailableParkingSpots() {
+       return parkingSpotService.getAllAvailableParkingSpots();
+    }
+
+    @RequestMapping("/parking_spots/reserved")
+    public List<ParkingSpot> getReservedParkingSpots() {
+        return parkingSpotService.getAllReservedSpots();
     }
 }
