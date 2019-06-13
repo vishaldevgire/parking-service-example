@@ -31,13 +31,13 @@ public class ParkingSpotServiceTest {
     }
 
     private final List<ParkingSpot> parkingSpots = Arrays.asList(
-            new ParkingSpot(1, 12, 23, 12, 45),
+            new ParkingSpot(1, 23, 146, 12, 45),
 
-            new ParkingSpot(2, 12, 23, 12, 45, new Reservation("A", new Date(), new Date(), 200)),
+            new ParkingSpot(2, 40, 33, 12, 45, new Reservation("A", new Date(), new Date(), 200)),
 
-            new ParkingSpot(3, 12, 23, 12, 45),
+            new ParkingSpot(3, 60, 43, 12, 45),
 
-            new ParkingSpot(4, 12, 23, 12, 45, new Reservation("B", new Date(), new Date(), 300))
+            new ParkingSpot(4, 70, 53, 12, 45, new Reservation("B", new Date(), new Date(), 300))
     );
 
     @Test
@@ -79,6 +79,7 @@ public class ParkingSpotServiceTest {
         assertThat(cost).isEqualTo(1620);
     }
 
+
     @Test
     public void shouldCancelReservedParkingSpot() {
         ParkingSpot parkingSpot = new ParkingSpot(1, 12, 23, 12, 45,
@@ -88,5 +89,19 @@ public class ParkingSpotServiceTest {
         service.cancelReservation(1);
 
         assertThat(parkingSpot.isReserved()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnParkingSpotsNearGivenCoordinates() {
+        when(repository.getAllParkingSpots()).thenReturn(parkingSpots);
+
+        List<ParkingSpot> parkingSpots = service.getParkingSpotsInVicinityOf(103000, 23.0000, 147.0000);
+
+        assertThat(parkingSpots.size()).isEqualTo(1);
+        assertThat(parkingSpots).isEqualTo(Arrays.asList(parkingSpots.get(0)));
+
+        List<ParkingSpot> parkingSpotsWhichAreTooFar = service.getParkingSpotsInVicinityOf(100, 44.0000, 147.0000);
+
+        assertThat(parkingSpotsWhichAreTooFar).isEmpty();
     }
 }

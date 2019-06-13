@@ -87,5 +87,17 @@ public class ParkingSpot {
     public boolean isReserved() {
         return this.reservation != null;
     }
+
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "id=" + id +
+                ", latitudes=" + latitudes +
+                ", longitude=" + longitude +
+                ", height=" + height +
+                ", width=" + width +
+                ", reservation=" + reservation +
+                '}';
+    }
 }
 

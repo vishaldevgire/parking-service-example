@@ -22,6 +22,12 @@ public class ParkingSpotController {
        return parkingSpotService.getAllAvailableParkingSpots();
     }
 
+    @RequestMapping("/parking_spots/available/find")
+    public List<ParkingSpot> getAvailableParkingSpotsNearALocation(@RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam("radius") double radiusInMeters) {
+        return parkingSpotService.getParkingSpotsInVicinityOf(radiusInMeters, lat, lng);
+    }
+
+
     @PostMapping("/parking_spots/{id}/cost")
     public Map<String, Integer> getCostOfReservation(@PathVariable("id") int id, @RequestBody ReservationDTO reservationDTO) {
         int costOfReservation = parkingSpotService.getCostOfReservation(reservationDTO, id);
