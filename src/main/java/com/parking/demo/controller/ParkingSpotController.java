@@ -19,7 +19,7 @@ public class ParkingSpotController {
 
     @RequestMapping("/parking_spots/available")
     public List<ParkingSpot> getAvailableParkingSpots() {
-       return parkingSpotService.getAllAvailableParkingSpots();
+        return parkingSpotService.getAllAvailableParkingSpots();
     }
 
     @RequestMapping("/parking_spots/available/find")
