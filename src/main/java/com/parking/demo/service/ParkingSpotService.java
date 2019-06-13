@@ -112,6 +112,9 @@ public class ParkingSpotService {
     }
 
 
+    /*
+        Haversine formula to calculate distance
+    */
     private static double distance(double lat1, double lat2, double lon1, double lon2) {
         final int R = 6371; // Radius of the earth
 
