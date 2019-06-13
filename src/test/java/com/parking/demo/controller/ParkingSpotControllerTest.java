@@ -4,12 +4,9 @@ import com.parking.demo.model.ParkingSpot;
 import com.parking.demo.service.ParkingSpotService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ParkingSpotController.class)
-public class ParkingSpotController {
+public class ParkingSpotControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,19 +32,14 @@ public class ParkingSpotController {
     private ParkingSpotService parkingSpotService;
 
     private List<ParkingSpot> parkingSpots = new ArrayList<>(Arrays.asList(
-            new ParkingSpot(1, 34, 25, 12, 6),
-            new ParkingSpot(2, 40, 54, 12, 6),
-            new ParkingSpot(3, 50, 55, 12, 6),
-            new ParkingSpot(4, 60, 45, 12, 6),
-            new ParkingSpot(5, 70, 95, 12, 6)
+            new ParkingSpot(1, 34, 25, 12, 6)
     ));
 
     @Test
     public void shouldReturnAvailableParkingSpots() throws Exception {
         Mockito.when(parkingSpotService.getAllAvailableParkingSpots()).thenReturn(parkingSpots);
-        this.mockMvc.perform(get("parking_spots/available"))
+        this.mockMvc.perform(get("/parking_spots/available"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello World")));
+                .andExpect(status().isOk());
     }
 }
