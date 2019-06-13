@@ -1,6 +1,7 @@
 package com.parking.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class ParkingSpot {
     private int id;
@@ -8,6 +9,8 @@ public class ParkingSpot {
     private double longitude;
     private int height;
     private int width;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Reservation reservation = null;
 
     public ParkingSpot(int id, double latitudes, double longitude, int height, int width) {
