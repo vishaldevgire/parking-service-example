@@ -47,7 +47,7 @@ public class ParkingSpotService {
         return getAllReservedSpots().stream().filter(ps -> ps.getId() == id).findFirst();
     }
 
-    public void reserveParkingSpot(ReservationDTO reservationDTO, int id) {
+    public ParkingSpot reserveParkingSpot(ReservationDTO reservationDTO, int id) {
         Optional<ParkingSpot> availableParkingSpot = findAvailableParkingSpotWithId(id);
 
         if (!availableParkingSpot.isPresent()) {
@@ -65,9 +65,11 @@ public class ParkingSpotService {
         availableParkingSpot.get().reserve(new Reservation(reservationDTO.getUser(), new Date(), endDate, cost));
 
         repository.saveParkingSpots();
+
+        return availableParkingSpot.get();
     }
 
-    public void cancelReservation(int id) {
+    public ParkingSpot cancelReservation(int id) {
         Optional<ParkingSpot> availableParkingSpot = findReservedParkingSpotWithId(id);
 
         if (!availableParkingSpot.isPresent()) {
@@ -82,6 +84,8 @@ public class ParkingSpotService {
 
         availableParkingSpot.get().reserve(null);
         repository.saveParkingSpots();
+
+        return availableParkingSpot.get();
     }
 
     public int getCostOfReservation(ReservationDTO reservationDTO, int id) {

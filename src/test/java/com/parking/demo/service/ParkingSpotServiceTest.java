@@ -32,11 +32,8 @@ public class ParkingSpotServiceTest {
 
     private final List<ParkingSpot> parkingSpots = Arrays.asList(
             new ParkingSpot(1, 23, 146, 12, 45),
-
             new ParkingSpot(2, 40, 33, 12, 45, new Reservation("A", new Date(), new Date(), 200)),
-
             new ParkingSpot(3, 60, 43, 12, 45),
-
             new ParkingSpot(4, 70, 53, 12, 45, new Reservation("B", new Date(), new Date(), 300))
     );
 
