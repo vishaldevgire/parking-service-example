@@ -71,6 +71,15 @@ public class ParkingSpotServiceTest {
     }
 
     @Test
+    public void shouldReturnCostForReservingParkingSpot() {
+        ParkingSpot parkingSpot = new ParkingSpot(1, 12, 23, 12, 45);
+        when(repository.getAllParkingSpots()).thenReturn(Arrays.asList(parkingSpot));
+        int cost = service.getCostOfReservation(new ReservationDTO("foo", 3), 1);
+
+        assertThat(cost).isEqualTo(1620);
+    }
+
+    @Test
     public void shouldCancelReservedParkingSpot() {
         ParkingSpot parkingSpot = new ParkingSpot(1, 12, 23, 12, 45,
                 new Reservation("foobar", new Date(), new Date(), 400));

@@ -13,7 +13,7 @@ import java.util.Map;
 public class ParkingSpotController {
     private ParkingSpotService parkingSpotService;
 
-    public ParkingSpotControllerTest(ParkingSpotService parkingSpotService) {
+    public ParkingSpotController(ParkingSpotService parkingSpotService) {
           this.parkingSpotService = parkingSpotService;
     }
 
